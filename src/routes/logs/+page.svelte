@@ -3,6 +3,7 @@
 </script>
 
 <h1>Logs</h1>
-<Card>
-  <a href="logs/hello-world">hello-world slug</a>
-</Card>
+
+<p>A place for troubleshooting</p>
+
+<Card><a href="logs/hello-world">hello-world slug</a></Card>

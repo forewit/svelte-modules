@@ -4,4 +4,4 @@
 
 <h1>Home</h1>
 
-<Card>Welcome home!</Card>
+<p>Welcoming you home</p>
