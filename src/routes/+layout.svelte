@@ -6,6 +6,7 @@
   <nav>
     <a href="/" class:selected={$page.url.pathname === '/'}>Home</a>
     <a href="/logs" class:selected={$page.url.pathname === '/logs'}>logs</a>
+    <a href="/board" class:selected={$page.url.pathname === '/board'}>board</a>
   </nav>
   
   <slot />

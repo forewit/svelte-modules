@@ -1,0 +1,24 @@
+{
+    id: "list-1",
+    title: "To Do",
+    cards: [
+        { id: "card-1", description: "Buy groceries" },
+        { id: "card-2", description: "Finish project report" },
+    ],
+},
+{
+    id: "list-2",
+    title: "In Progress",
+    cards: [
+        { id: "card-3", description: "Study for the exam" },
+        { id: "card-4", description: "Prepare presentation" },
+    ],
+},
+{
+    id: "list-3",
+    title: "Done",
+    cards: [
+        { id: "card-5", description: "" },
+        { id: "card-6", description: "" },
+    ],
+}
