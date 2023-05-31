@@ -22,3 +22,32 @@ export function uuidv4(): string {
         throw new Error('Secure random number generation is not supported in this environment');
     }
 }
+
+
+/* 
+Set notch css properties based on window orientation.
+These properties can be used to determine if there is a notch
+and which side of the screen the notch is on.
+
+add ths to your JS:
+    window.addEventListener('orientationchange', utils.setNotchCssProperties);
+    utils.setNotchCssProperties();
+
+then you can use these properties in your CSS:
+    var(--notch-left) 
+    var(--notch-right) 
+    var(--notch-top) 
+*/
+export function setNotchCssProperties(): void {
+    document.documentElement.style.setProperty('--notch-top', '0');
+    document.documentElement.style.setProperty('--notch-right', '0');
+    document.documentElement.style.setProperty('--notch-left', '0');
+
+    if (window.orientation == 0) {
+        document.documentElement.style.setProperty('--notch-top', '1');
+    } else if (window.orientation == 90) {
+        document.documentElement.style.setProperty('--notch-left', '1');
+    } else if (window.orientation == -90) {
+        document.documentElement.style.setProperty('--notch-right', '1');
+    }
+}
