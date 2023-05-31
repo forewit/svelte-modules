@@ -3,4 +3,5 @@
 </script>
 
 <!-- list with a title -->
-<List title="List Title" />
+<List title="List A" />
+<List title="Another list (B)" />

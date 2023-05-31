@@ -36,6 +36,6 @@
 </style>
 
 <div class="card" bind:this={cardElement} on:dragstart={handleDragStart}>
-  Card content
+  <slot></slot>
   <RemoveCardButton on:click={() => removeCard(card.id)} />
 </div>

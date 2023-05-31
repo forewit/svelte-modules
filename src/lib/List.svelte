@@ -3,7 +3,7 @@
   import Card from "./Card.svelte";
   import AddCardButton from "./AddCardButton.svelte";
 
-  export const title = "List Title";
+  export let title = "";
 
   interface Card {
     id: number;
@@ -27,7 +27,7 @@
     padding: 16px;
     background-color: #f0f0f0;
     border-radius: 8px;
-    max-width: 300px;
+    max-width: 240px;
   }
 
   h3 {
@@ -38,7 +38,7 @@
 <div class="list">
   <h3>{title}</h3>
   {#each $cards as card (card.id)}
-    <Card {card} {removeCard} />
+    <Card {card} {removeCard}></Card>
   {/each}
   <AddCardButton on:click={addCard} />
 </div>
