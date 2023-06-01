@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { base } from "$app/paths";
 
   let gridContainer: HTMLElement;
 
@@ -59,7 +58,7 @@
   /* Import the Ysabeau font */
   @font-face {
     font-family: "Poltawski Nowy";
-    src: url("{base}/fonts/Poltawski Nowy/PoltawskiNowy-VariableFont_wght.ttf")
+    src: url("/fonts/Poltawski Nowy/PoltawskiNowy-VariableFont_wght.ttf")
       format("truetype");
     font-weight: normal;
     font-style: normal;
