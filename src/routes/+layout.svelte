@@ -13,16 +13,14 @@
   });
 </script>
 
-<div id="main-container" style="--notch-left: {leftNotch}">
-  <div id="main-grid">
+  <div id="main-grid" style="--notch-left: {leftNotch}">
     <div id="content">
       <slot />
     </div>
   </div>
-</div>
 
 <style>
-  #main-container {
+  #main-grid {
     /* make fulscreen */
     position: fixed;
     top: 0;
@@ -31,17 +29,16 @@
     bottom: 0;
     user-select: none;;
 
-    /* temporary */
-    box-shadow: inset 0px 0px 10px 5px white;
-    background: red;
-  }
-  #main-grid {
     /* setup grid to account for notch */
     display: grid;
     gap: 0px 0px;
     grid-template-columns: calc(env(safe-area-inset-left) * var(--notch-left)) 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: "notch slot";
+    
+    /* temporary */
+    box-shadow: inset 0px 0px 10px 5px white;
+    background: red;
   }
   #content {
     grid-area: slot;
