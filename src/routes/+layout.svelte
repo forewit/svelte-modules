@@ -13,11 +13,18 @@
   });
 </script>
 
-  <div id="main-grid" style="--notch-left: {leftNotch}">
-    <div id="content">
-      <slot />
-    </div>
+<svelte:head>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover"
+  />
+</svelte:head>
+
+<div id="main-grid" style="--notch-left: {leftNotch}">
+  <div id="content">
+    <slot />
   </div>
+</div>
 
 <style>
   #main-grid {
@@ -27,7 +34,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    user-select: none;;
+    user-select: none;
 
     /* setup grid to account for notch */
     display: grid;
@@ -35,10 +42,10 @@
     grid-template-columns: calc(env(safe-area-inset-left) * var(--notch-left)) 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: "notch slot";
-    
+
     /* temporary */
     box-shadow: inset 0px 0px 10px 5px white;
-    background: red;
+    background: darkcyan;
   }
   #content {
     grid-area: slot;
