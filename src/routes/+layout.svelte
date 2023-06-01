@@ -1,41 +1,36 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  let gridContainer: HTMLElement;
+  let notchLeft = 0;
 
-  /* 
-  Set notch css properties based on window orientation.
-  These properties can be used to determine if there is a notch
-  and which side of the screen the notch is on.
-  */
-  function setNotchCssProperties(): void {
-    if (window.orientation == 0) {
-      gridContainer.style.setProperty("--notch-top", "1");
-    } else if (window.orientation == 90) {
-      gridContainer.style.setProperty("--notch-left", "1");
-    } else if (window.orientation == -90) {
-      gridContainer.style.setProperty("--notch-right", "1");
-    }
-  }
-
-  onMount(() => {
-    window.addEventListener("orientationchange", setNotchCssProperties);
-    setNotchCssProperties();
-  });
+  screen.orientation.onchange = (e) => {
+    console.log(screen.orientation);
+  };
 </script>
 
-<div id="grid-container" class="g-fullscreen" bind:this={gridContainer}>
+<svelte:head>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover"
+  />
+</svelte:head>
+
+<div id="main-grid" style="--notch-left: {notchLeft}">
   <div id="content">
     <slot />
   </div>
 </div>
 
 <style>
-  #grid-container {
-    --notch-top: 0;
-    --notch-right: 0;
-    --notch-left: 0;
+  #main-grid {
+    /* make fulscreen */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
+    /* setup grid to account for notch */
     display: grid;
     gap: 0px 0px;
     grid-template-columns: calc(env(safe-area-inset-left) * var(--notch-left)) 1fr;
@@ -43,7 +38,8 @@
     grid-template-areas: "notch slot";
 
     /* temporary */
-    background: red;
+    box-shadow: inset 0px 0px 10px 5px white;
+    background: darkcyan;
   }
   #content {
     grid-area: slot;
@@ -73,12 +69,5 @@
     padding: 0;
     overflow: hidden;
     background: white; /* steelblue */
-  }
-  :global(.g-fullscreen) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
   }
 </style>
