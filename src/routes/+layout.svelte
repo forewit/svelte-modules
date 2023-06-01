@@ -1,16 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  let leftNotch = 0;
+  let notchLeft = 0;
 
-  function updateNotch() {
-    leftNotch = window.orientation == 90 ? 1 : 0;
-  }
-
-  onMount(() => {
-    window.addEventListener("orientationchange", updateNotch);
-    updateNotch();
-  });
+  screen.orientation.onchange = (e) => {
+    console.log(screen.orientation);
+  };
 </script>
 
 <svelte:head>
@@ -20,7 +15,7 @@
   />
 </svelte:head>
 
-<div id="main-grid" style="--notch-left: {leftNotch}">
+<div id="main-grid" style="--notch-left: {notchLeft}">
   <div id="content">
     <slot />
   </div>
@@ -34,7 +29,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    user-select: none;
 
     /* setup grid to account for notch */
     display: grid;
