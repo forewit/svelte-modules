@@ -3,14 +3,12 @@
 
   let notchLeft = 0,
     notchRight = 0,
-    notchTop = 0,
-    notchBottom = 0;
+    notchTop = 0;
 
   function handleOrientation() {
-    notchLeft = screen.orientation.angle == 90 ? 1 : 0;
-    notchRight = screen.orientation.angle == -90 ? 1 : 0;
-    notchTop = screen.orientation.angle == 0 ? 1 : 0;
-    notchBottom = screen.orientation.angle == 180 ? 1 : 0;
+    notchRight = screen.orientation.type == "landscape-primary" ? 1 : 0;
+    notchLeft = screen.orientation.type == "landscape-secondary" ? 1 : 0;
+    notchTop = screen.orientation.type == "portrait-primary" ? 1 : 0;
   }
 
   onMount(() => {
@@ -27,19 +25,16 @@
 </svelte:head>
 
 <div
-  id="main-grid"
-  style="--notch-left: {notchLeft}; --notch-right: {notchRight}; --notch-top: {notchTop}; --notch-bottom: {notchBottom};"
+  id="container"
+  style="--notch-left: {notchLeft}; --notch-right: {notchRight}; --notch-top: {notchTop};"
 >
   <div id="content">
-    notchLeft: {notchLeft}
-    notchRight:
     <slot />
   </div>
 </div>
 
 <style>
-  #main-grid {
-    /* make fulscreen */
+  #container {
     position: fixed;
     top: 0;
     left: 0;
@@ -47,28 +42,15 @@
     bottom: 0;
 
     /* setup grid to account for notch */
-    display: grid;
-    gap: 0px 0px;
-    grid-template-columns: calc(env(safe-area-inset-left) * var(--notch-left)) 1fr calc(
-        env(safe-area-inset-right) * var(--notch-right)
-      );
-    grid-template-rows: calc(env(safe-area-inset-top) * var(--notch-top)) 1fr calc(
-        env(safe-area-inset-bottom) * var(--notch-bottom)
-      );
-    grid-template-areas:
-      "notch notch notch"
-      "notch slot notch"
-      "notch notch notch";
-
-    /* temporary */
-    box-shadow: inset 0px 0px 10px 5px white;
-    background: darkcyan;
+    margin-left: calc(env(safe-area-inset-left) * var(--notch-left));
+    margin-right: calc(env(safe-area-inset-right) * var(--notch-right));
+    margin-top: calc(env(safe-area-inset-top) * var(--notch-top));
   }
+
   #content {
-    grid-area: slot;
-    position: relative;
-    height: 100%;
+    position: absolute;
     width: 100%;
+    height: 100%;
 
     /* temporary */
     background: aliceblue;
@@ -91,6 +73,6 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: white; /* steelblue */
+    background: lightskyblue;
   }
 </style>
