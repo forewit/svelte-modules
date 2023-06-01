@@ -1,12 +1,13 @@
 <script>
   import { page } from "$app/stores";
+  import { base } from "$app/paths";
 </script>
 
 <nav>
-  <a href="/" class:selected={$page.url.pathname === "/"}>Home</a>
-  <a href="/logs" class:selected={$page.url.pathname === "/logs"}>logs</a>
-  <a href="/trello" class:selected={$page.url.pathname === "/trello"}>trello</a>
-  <a href="/board" class:selected={$page.url.pathname === "/board"}>board</a>
+  <a href="{base}/" class:selected={$page.url.pathname === "/"}>Home</a>
+  <a href="{base}/logs" class:selected={$page.url.pathname === "/logs"}>logs</a>
+  <a href="{base}/trello" class:selected={$page.url.pathname === "/trello"}>trello</a>
+  <a href="{base}/board" class:selected={$page.url.pathname === "/board"}>board</a>
 </nav>
 
 <slot />

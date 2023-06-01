@@ -13,8 +13,10 @@ const config = {
 			// default options are shown
 			pages: 'docs',
 			assets: 'docs',
-			fallback: null
-		  })
+		}),
+		paths: {
+			base: process.env.NODE_ENV === "development" ? "" : "/svelte-modules"
+		}
 	}
 };
 
