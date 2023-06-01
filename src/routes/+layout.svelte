@@ -1,50 +1,47 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { base } from "$app/paths";
 
-  let gridContainer: HTMLElement;
+  let leftNotch = 0;
 
-  /* 
-  Set notch css properties based on window orientation.
-  These properties can be used to determine if there is a notch
-  and which side of the screen the notch is on.
-  */
-  function setNotchCssProperties(): void {
-    if (window.orientation == 0) {
-      gridContainer.style.setProperty("--notch-top", "1");
-    } else if (window.orientation == 90) {
-      gridContainer.style.setProperty("--notch-left", "1");
-    } else if (window.orientation == -90) {
-      gridContainer.style.setProperty("--notch-right", "1");
-    }
+  function updateNotch() {
+    leftNotch = window.orientation == 90 ? 1 : 0;
   }
 
   onMount(() => {
-    window.addEventListener("orientationchange", setNotchCssProperties);
-    setNotchCssProperties();
+    window.addEventListener("orientationchange", updateNotch);
+    updateNotch();
   });
 </script>
 
-<div id="grid-container" class="g-fullscreen" bind:this={gridContainer}>
-  <div id="content">
-    <slot />
+<div id="main-container" style="--notch-left: {leftNotch}">
+  <div id="main-grid">
+    <div id="content">
+      <slot />
+    </div>
   </div>
 </div>
 
 <style>
-  #grid-container {
-    --notch-top: 0;
-    --notch-right: 0;
-    --notch-left: 0;
+  #main-container {
+    /* make fulscreen */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    user-select: none;;
 
+    /* temporary */
+    box-shadow: inset 0px 0px 10px 5px white;
+    background: red;
+  }
+  #main-grid {
+    /* setup grid to account for notch */
     display: grid;
     gap: 0px 0px;
     grid-template-columns: calc(env(safe-area-inset-left) * var(--notch-left)) 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: "notch slot";
-
-    /* temporary */
-    background: red;
   }
   #content {
     grid-area: slot;
@@ -59,7 +56,7 @@
   /* Import the Ysabeau font */
   @font-face {
     font-family: "Poltawski Nowy";
-    src: url("{base}/fonts/Poltawski Nowy/PoltawskiNowy-VariableFont_wght.ttf")
+    src: url("/fonts/Poltawski Nowy/PoltawskiNowy-VariableFont_wght.ttf")
       format("truetype");
     font-weight: normal;
     font-style: normal;
@@ -74,12 +71,5 @@
     padding: 0;
     overflow: hidden;
     background: white; /* steelblue */
-  }
-  :global(.g-fullscreen) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
   }
 </style>
