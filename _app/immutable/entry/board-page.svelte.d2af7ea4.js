@@ -1,1 +1,0 @@
-import{S as r,i,s as c,k as o,l as h,m as _,h as a,n as m,b as d,I as s}from"../chunks/index.fcf5ccc2.js";function p(n){let e;return{c(){e=o("div"),this.h()},l(t){e=h(t,"DIV",{class:!0}),_(e).forEach(a),this.h()},h(){m(e,"class","card svelte-bmens2")},m(t,l){d(t,e,l)},p:s,i:s,o:s,d(t){t&&a(e)}}}class f extends r{constructor(e){super(),i(this,e,null,p,c,{})}}export{f as default};
