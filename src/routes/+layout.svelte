@@ -35,19 +35,21 @@
 
 <style>
   #container {
+    /* make fullscreen */
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
 
-    /* setup grid to account for notch */
+    /* add margin to account for notch */
     margin-left: calc(env(safe-area-inset-left) * var(--notch-left));
     margin-right: calc(env(safe-area-inset-right) * var(--notch-right));
     margin-top: calc(env(safe-area-inset-top) * var(--notch-top));
   }
 
   #content {
+    /* fill container */
     position: absolute;
     width: 100%;
     height: 100%;
