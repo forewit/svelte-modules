@@ -1,57 +1,56 @@
+<!-- 
+this is a single svelte3 component for a grid of squares that fills the screen evenly.
+use the #each directive to create a grid of square elements
+
+this is not for a game, but rather for using the hover feature on each square to detect where the mouse is at
+-->
 <script lang="ts">
-  import { onMount } from "svelte";
+    import { onMount } from "svelte";
 
-  interface Shape {
-    x: number;
-    y: number;
-    w: number;
-    h: number;
-    color?: string;
-  }
+  const SQUARE_SIZE = 50;
+  let gridWidth = 0,
+    gridHeight = 0;
 
-  const DEFAULT_COLOR = "black";
-
-  let canvas: HTMLCanvasElement,
-    width = 0,
-    height = 0,
-    shapes: Shape[] = [];
-
-  function resize() {
-    width = canvas.clientWidth;
-    height = canvas.clientHeight;
-    canvas.width = width;
-    canvas.height = height;
-
-    /* temporary */
-    console.log("resize");
-  }
-
-  function draw(ctx: CanvasRenderingContext2D) {
-    ctx.clearRect(0, 0, width, height);
-    for (let shape of shapes) {
-      ctx.fillStyle = shape.color || DEFAULT_COLOR;
-      ctx.fillRect(shape.x, shape.y, shape.w, shape.h);
-    }
+  function handleResize() {
+    gridWidth = Math.floor(window.innerWidth / SQUARE_SIZE);
+    gridHeight = Math.floor(window.innerHeight / SQUARE_SIZE);
   }
 
   onMount(() => {
-    let ctx = canvas.getContext("2d");
-
-    shapes.push({ x: 0, y: 0, w: 200, h: 200, color: "red" });
-    shapes.push({ x: 0, y: 0, w: 100, h: 100, color: "blue" });
-
-
-    if (ctx) draw(ctx);
+    handleResize();
   });
 </script>
 
-<canvas id="canvas" class="card" bind:this={canvas} />
+<svelte:window on:resize={handleResize} />
+
+<div
+  class="grid"
+  style="--grid-width: {gridWidth}; --grid-height: {gridHeight}"
+>
+  {#each Array(gridWidth * gridHeight) as _, i}
+    <div class="square" />
+  {/each}
+</div>
 
 <style>
-  .card {
-    position: absolute;
-    background-color: #ffffff;
-    margin: 20px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-width), 1fr);
+    grid-template-rows: repeat(var(--grid-height), 1fr);
+    width: 100%;
+    height: 100%;
+  }
+
+  .square {
+    background-color: #fff;
+    border: 1px solid #f5f5f5;
+    width: 100%;
+    height: 100%;
+  }
+
+  .square:hover {
+    background-color: aliceblue;
+    scale: 1.5;
+    transition: scale 0.2s ease-in-out;
   }
 </style>
