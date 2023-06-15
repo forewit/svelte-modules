@@ -5,15 +5,27 @@ use the #each directive to create a grid of square elements
 this is not for a game, but rather for using the hover feature on each square to detect where the mouse is at
 -->
 <script lang="ts">
-    import { onMount } from "svelte";
+  import { onMount } from "svelte";
 
-  const SQUARE_SIZE = 50;
-  let gridWidth = 0,
+  const MIN_SQUARE_SIZE = 20,
+        MAX_SQUARE_SIZE = 100;
+
+  let squareSize = 50,
+    gridWidth = 0,
     gridHeight = 0;
 
+  function handleScroll(e: WheelEvent) {
+    if (e.deltaY > 0) {
+      squareSize = Math.max(squareSize - 5, MIN_SQUARE_SIZE);
+    } else {
+      squareSize = Math.min(squareSize + 5, MAX_SQUARE_SIZE);
+    }
+    handleResize();
+  }
+
   function handleResize() {
-    gridWidth = Math.floor(window.innerWidth / SQUARE_SIZE);
-    gridHeight = Math.floor(window.innerHeight / SQUARE_SIZE);
+    gridWidth = Math.floor(window.innerWidth / squareSize);
+    gridHeight = Math.floor(window.innerHeight / squareSize);
   }
 
   onMount(() => {
@@ -21,7 +33,7 @@ this is not for a game, but rather for using the hover feature on each square to
   });
 </script>
 
-<svelte:window on:resize={handleResize} />
+<svelte:window on:resize={handleResize} on:wheel={handleScroll} />
 
 <div
   class="grid"
@@ -50,7 +62,5 @@ this is not for a game, but rather for using the hover feature on each square to
 
   .square:hover {
     background-color: aliceblue;
-    scale: 1.5;
-    transition: scale 0.2s ease-in-out;
   }
 </style>

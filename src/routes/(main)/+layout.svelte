@@ -4,16 +4,24 @@
 </script>
 
 <nav>
-  <a href="{base}/" class:selected={$page.url.pathname === "{base}/"}>Home</a>
-  <a href="{base}/logs" class:selected={$page.url.pathname === "{base}/logs"}>logs</a>
-  <a href="{base}/trello" class:selected={$page.url.pathname === "{base}/trello"}>trello</a>
-  <a href="{base}/board" class:selected={$page.url.pathname === "{base}/board"}>board</a>
+  <a href="{base}/" class:selected={$page.url.pathname === "/"}>Home</a>
+  <a href="{base}/logs" class:selected={$page.url.pathname === "/logs"}>logs</a>
+  <a href="{base}/trello" class:selected={$page.url.pathname === "/trello"}>trello</a>
+  <a href="{base}/board" class:selected={$page.url.pathname === "/board"}>board</a>
+  <a href="{base}/blog" class:selected={$page.url.pathname === "/blog"}>blog</a>
 </nav>
 
-<slot />
+<main>
+  <slot />
+</main>
 
 <style>
+  main {
+    overflow: auto;
+    height: calc(100% - 50px); /* 50px is the height of the nav */
+  }
   nav {
+    height: 50px;  /* 50px is the height of the nav */
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -37,6 +45,6 @@
   }
 
   a.selected {
-    background-color: #555;
+    background-color: #777;
   }
 </style>
