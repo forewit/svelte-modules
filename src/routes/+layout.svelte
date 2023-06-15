@@ -76,4 +76,9 @@
     font-family: "Poltawski Nowy";
     background: lightskyblue;
   }
+
+  :global(.dark) {
+    background-color: #333;
+    color: #fff;
+  }
 </style>

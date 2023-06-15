@@ -6,20 +6,18 @@
 <nav>
   <a href="{base}/" class:selected={$page.url.pathname === "/"}>Home</a>
   <a href="{base}/logs" class:selected={$page.url.pathname === "/logs"}>logs</a>
-  <a href="{base}/trello" class:selected={$page.url.pathname === "/trello"}>trello</a>
-  <a href="{base}/board" class:selected={$page.url.pathname === "/board"}>board</a>
+  <a href="{base}/trello" class:selected={$page.url.pathname === "/trello"}
+    >trello</a
+  >
+  <a href="{base}/board" class:selected={$page.url.pathname === "/board"}
+    >board</a
+  >
   <a href="{base}/blog" class:selected={$page.url.pathname === "/blog"}>blog</a>
 </nav>
 
-<main>
-  <slot />
-</main>
+<slot />
 
 <style>
-  main {
-    overflow: auto;
-    height: calc(100% - 50px); /* 50px is the height of the nav */
-  }
   nav {
     height: 50px;
     display: flex;
@@ -46,5 +44,10 @@
 
   a.selected {
     background-color: #777;
+  }
+
+  .dark-background {
+    background-color: #333;
+    color: #fff;
   }
 </style>
