@@ -21,7 +21,7 @@
     height: calc(100% - 50px); /* 50px is the height of the nav */
   }
   nav {
-    height: 50px;  /* 50px is the height of the nav */
+    height: 50px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
