@@ -4,7 +4,7 @@
   import { base } from "$app/paths";
   import Article from "$lib/Article.svelte";
 
-  export let data: { title: string, markdown: string };
+  export let data: { title: string, url: string };
 </script>
 
 <svelte:head>
@@ -13,4 +13,4 @@
 
 <a href="{base}/blog">...back</a>
 
-<Article markdown={data.markdown} />
+<Article markdownURL={data.url} offsetTop={71} />

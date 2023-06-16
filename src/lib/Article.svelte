@@ -2,10 +2,12 @@
   import { base } from "$app/paths";
   import { onMount } from "svelte/internal";
 
-  export let markdown: string = "";
+  export let markdownURL: string;
+  export let offsetTop: number = 0;
 
   let main: HTMLElement;
 
+  // convert markdown to html
   function markdownToHtml(markdown: string): string {
     return markdown
       .split("\n")
@@ -27,7 +29,7 @@
           const imageMatch = line.match(/^!\[(.+?)\]\((.+?)\)$/);
           const linkMatch = line.match(/^\[(.+?)\]\((.+?)\)$/);
           return imageMatch
-            ? `<img src="${imageMatch[2]}" alt="${imageMatch[1]}" ${
+            ? `<img src="${base}${imageMatch[2]}" alt="${imageMatch[1]}" ${
                 triggers ? `triggers="${triggers}"` : ""
               }/>`
             : linkMatch
@@ -42,7 +44,10 @@
       .replace(/\[(.+?)\]\((.+?)\)/g, `<a href="$2">$1</a>`);
   }
 
+
+  // toggle classes on the main element when an element with the triggers attribute is intersected
   function onIntersection(entries: IntersectionObserverEntry[]): void {
+    if (!main) return;
     entries.forEach((entry) => {
       const mainClasses =
         entry.target.getAttribute("triggers")?.split(" ") || [];
@@ -53,34 +58,44 @@
     });
   }
 
+
+  // fetch the markdown file from the url
+  async function getArticle(url: string): Promise<string> {
+    const res = await fetch(url);
+    return await res.text();
+  }
+
+
   onMount(() => {
-    // wait for the markdown to be rendered
-    setTimeout(() => {
-      // add an observer to each section
+    // get the markdown file
+    getArticle(markdownURL).then((text) => {
+      // convert markdown to html
+      const markdown = markdownToHtml(text);
+
+      // set the markdown as the innerHTML of the article
+      main.innerHTML = markdown;
+
+      // create an observer to watch for elements with the triggers attribute
       const observer = new IntersectionObserver(onIntersection, {
         root: main,
-        rootMargin: "0px 0px 0px 0px", // top, right, bottom, left
-        threshold: 0.5, // trigger when 50% of the section is in view
+        rootMargin: "0px",
+        threshold: 0.5,
       });
-      const sections = main.querySelectorAll("[triggers]");
-      sections?.forEach((section) => {
-        observer.observe(section);
-      });
-    }, 0);
+
+      // observe all elements with the triggers attribute
+      main
+        .querySelectorAll("[triggers]")
+        .forEach((element) => observer.observe(element));
+    });    
   });
 </script>
 
-<main bind:this={main}>
-  <article>
-    {@html markdownToHtml(markdown)}
-  </article>
-</main>
+<main bind:this={main} style="height: calc(100% - {offsetTop}px);"/>
 
 <style>
   main {
     overflow: auto;
     scroll-behavior: smooth;
-    height: calc(100% - 50px); /* 50px is the height of the nav */
     transition: background-color 0.5s, color 0.5s;
   }
 </style>
