@@ -14,4 +14,3 @@
 <a href="{base}/blog">...back</a>
 
 <Article markdown={data.markdown} />
-
