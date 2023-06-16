@@ -3,12 +3,18 @@ import { base } from '$app/paths';
 
 /** @type {import('./$types').PageLoad} */
 export function load({ params }) {
-    if (params.slug === 'hello-world') {
-        return {
-            title: 'Hello world',
-            url: `${base}/markdown/hello-world.md`,
-        };
+
+    function slugToTitle(slug) {
+        return slug
+            .split('-')
+            .map(word => word[0].toUpperCase() + word.slice(1))
+            .join(' ');
     }
+
+    return {
+        title: slugToTitle(params.slug),
+        url: `${base}/markdown/${params.slug}.md`,
+    };
 
     throw error(404, 'Not found');
 }

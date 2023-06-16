@@ -1,6 +1,6 @@
 <script lang="ts">
   import { base } from "$app/paths";
-  import { onMount } from "svelte/internal";
+  import { HtmlTag, onMount } from "svelte/internal";
 
   export let markdownURL: string;
   export let offsetTop: number = 0;
@@ -9,7 +9,15 @@
 
   // convert markdown to html
   function markdownToHtml(markdown: string): string {
-    return markdown
+
+    // extract and combine each css block into a single string
+    const css = `<style>${markdown
+      .match(/```css[\s\S]*?```/g)
+      ?.map((block) => block.replace(/```css/, "").replace(/```/, ""))
+      .join("")}</style>`;
+
+    return css + markdown
+      .replace(/```css[\s\S]*?```/g, "")
       .split("\n")
       .map((line) => {
         const triggers = line.match(/\{(.+?)\}/)?.[1];
@@ -33,17 +41,16 @@
                 triggers ? `triggers="${triggers}"` : ""
               }/>`
             : linkMatch
-            ? `<a href="${linkMatch[2]}" ${
+            ? `<a href="${base}${linkMatch[2]}" ${
                 triggers ? `triggers="${triggers}"` : ""
               }>${linkMatch[1]}</a>`
             : `<p ${triggers ? `triggers="${triggers}"` : ""}>${line}</p>`;
         }
       })
       .join("")
-      .replace(/!\[(.+?)\]\((.+?)\)/g, `<img src="$2" alt="$1" />`)
+      .replace(/!\[(.+?)\]\((.+?)\)/g, `<img src="${base}$2" alt="$1" />`)
       .replace(/\[(.+?)\]\((.+?)\)/g, `<a href="$2">$1</a>`);
   }
-
 
   // toggle classes on the main element when an element with the triggers attribute is intersected
   function onIntersection(entries: IntersectionObserverEntry[]): void {
@@ -58,13 +65,11 @@
     });
   }
 
-
   // fetch the markdown file from the url
   async function getArticle(url: string): Promise<string> {
     const res = await fetch(url);
     return await res.text();
   }
-
 
   onMount(() => {
     // get the markdown file
@@ -86,11 +91,11 @@
       main
         .querySelectorAll("[triggers]")
         .forEach((element) => observer.observe(element));
-    });    
+    });
   });
 </script>
 
-<main bind:this={main} style="height: calc(100% - {offsetTop}px);"/>
+<main bind:this={main} style="height: calc(100% - {offsetTop}px);" />
 
 <style>
   main {
