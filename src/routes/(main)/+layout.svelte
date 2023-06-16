@@ -4,15 +4,17 @@
 </script>
 
 <nav>
-  <a href="{base}/" class:selected={$page.url.pathname === "/"}>Home</a>
-  <a href="{base}/logs" class:selected={$page.url.pathname === "/logs"}>logs</a>
-  <a href="{base}/trello" class:selected={$page.url.pathname === "/trello"}
-    >trello</a
+  <a href="{base}/" class:selected={$page.url.pathname === `${base}/`}>Home</a>
+  <a
+    href="{base}/trello"
+    class:selected={$page.url.pathname === `${base}/trello`}>trello</a
   >
-  <a href="{base}/board" class:selected={$page.url.pathname === "/board"}
+  <a href="{base}/board" class:selected={$page.url.pathname === `${base}/board`}
     >board</a
   >
-  <a href="{base}/blog" class:selected={$page.url.pathname === "/blog"}>blog</a>
+  <a href="{base}/blog" class:selected={$page.url.pathname === `${base}/blog`}
+    >blog</a
+  >
 </nav>
 
 <slot />
@@ -44,10 +46,5 @@
 
   a.selected {
     background-color: #777;
-  }
-
-  .dark-background {
-    background-color: #333;
-    color: #fff;
   }
 </style>
