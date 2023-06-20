@@ -160,4 +160,25 @@
     scroll-behavior: smooth;
     transition: background-color 0.5s, color 0.5s;
   }
+  :global(.centered) {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+  }
+  :global(.indent) {
+    padding-left: 30px;
+  }
+  :global(img) {
+    height: 100px;
+    width: 100px;
+  }
+  :global(h1) {
+    font-size: 2em;
+  }
+  :global(h2) {
+    font-size: 1.5em;
+  }
+  :global(h3) {
+    font-size: 1.17em;
+  }
 </style>

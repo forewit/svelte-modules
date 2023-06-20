@@ -47,36 +47,16 @@ Staring up at the night sky, we witness an awe-inspiring display of countless st
 
 <style>
 #page {
-  padding: 0 10%;
-}
-.centered {
-  text-align: center;
-  display: block;
+  padding: 0 30px;
+  max-width: 680px;
   margin: 0 auto;
 }
 .dark {
   background-color: #333;
   color: #fff;
-
 }
 .light {
   background-color: #fff;
   color: #333;
-}
-.indent {
-  padding-left: 40px;
-}
-img {
-  height: 100px;
-  width: 100px;
-}
-h1 {
-  font-size: 2em;
-}
-h2 {
-  font-size: 1.5em;
-}
-h3 {
-  font-size: 1.17em;
 }
 </style>
