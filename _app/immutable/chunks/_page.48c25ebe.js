@@ -1,0 +1,1 @@
+import{b as o}from"./paths.6768e410.js";new TextEncoder;function l({params:e}){return{title:e.slug.split("-").map(t=>t[0].toUpperCase()+t.slice(1)).join(" "),url:`${o}/markdown/${e.slug}.md`}}const n=Object.freeze(Object.defineProperty({__proto__:null,load:l},Symbol.toStringTag,{value:"Module"}));export{n as _,l};

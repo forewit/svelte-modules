@@ -1,1 +1,0 @@
-import{b as n}from"./paths.36053e00.js";new TextEncoder;function r({params:e}){function o(l){return l.split("-").map(t=>t[0].toUpperCase()+t.slice(1)).join(" ")}return{title:o(e.slug),url:`${n}/markdown/${e.slug}.md`}}const i=Object.freeze(Object.defineProperty({__proto__:null,load:r},Symbol.toStringTag,{value:"Module"}));export{i as _,r as l};
