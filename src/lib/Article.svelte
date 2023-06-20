@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { base } from "$app/paths";
   import { HtmlTag, onMount } from "svelte/internal";
 
   export let markdownURL: string;
@@ -11,7 +10,9 @@
     // extract each <style> tags from the markdown (they start with "<style>" and end with "</style>") and merge them into a single style tag string
     const css = markdown.match(/<style>[\s\S]*?<\/style>/g)?.join("") || "";
 
-    return css + markdown
+    return (
+      css +
+      markdown
         .replace(/\r\n<style>[\s\S]*?<\/style>/g, "")
         .split("\r\n")
         .map((line) => {
@@ -41,7 +42,7 @@
             if (url) {
               line = line.replace(
                 `{${data}}`,
-                `<img src="${base}${url}" alt="${url}"${
+                `<img src="${url}" alt="${url}"${
                   id ? ` id="${id}"` : ""
                 }${classes.length ? ` class="${classes.join(" ")}"` : ""}${
                   states.length ? ` state="${states.join(" ")}"` : ""
@@ -102,8 +103,10 @@
               lineStates.length ? ` state="${lineStates.join(" ")}"` : ""
             }>${line}</p>`;
           }
-        }).join("");
-  };
+        })
+        .join("")
+    );
+  }
 
   // toggle classes on the main element when an element with the state attribute is intersected
   function onIntersection(entries: IntersectionObserverEntry[]): void {
@@ -148,7 +151,7 @@
 </script>
 
 <main bind:this={main} style="height: calc(100% - {offsetTop}px);">
-  <slot></slot>
+  <slot />
 </main>
 
 <style>

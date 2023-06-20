@@ -1,18 +1,17 @@
 <script>
   import { page } from "$app/stores";
-  import { base } from "$app/paths";
 </script>
 
 <nav>
-  <a href="{base}/" class:selected={$page.url.pathname === `${base}/`}>Home</a>
+  <a href="/" class:selected={$page.url.pathname === `/`}>Home</a>
   <a
-    href="{base}/trello"
-    class:selected={$page.url.pathname === `${base}/trello`}>trello</a
+    href="/trello"
+    class:selected={$page.url.pathname === `/trello`}>trello</a
   >
-  <a href="{base}/board" class:selected={$page.url.pathname === `${base}/board`}
+  <a href="/board" class:selected={$page.url.pathname === `/board`}
     >board</a
   >
-  <a href="{base}/blog" class:selected={$page.url.pathname === `${base}/blog`}
+  <a href="/blog" class:selected={$page.url.pathname === `/blog`}
     >blog</a
   >
 </nav>

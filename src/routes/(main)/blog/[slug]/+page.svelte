@@ -10,4 +10,4 @@
   <title>{data.title}</title>
 </svelte:head>
 
-<Article markdownURL={data.url} offsetTop={71} />
+<Article markdownURL={data.url} offsetTop={50} />
