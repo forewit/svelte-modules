@@ -3,16 +3,8 @@ import { base } from '$app/paths';
 
 /** @type {import('./$types').PageLoad} */
 export function load({ params }) {
-
-    function slugToTitle(slug) {
-        return slug
-            .split('-')
-            .map(word => word[0].toUpperCase() + word.slice(1))
-            .join(' ');
-    }
-
     return {
-        title: slugToTitle(params.slug),
+        title: params.slug.split('-').map(word => word[0].toUpperCase()+word.slice(1)).join(' '),
         url: `${base}/markdown/${params.slug}.md`,
     };
 

@@ -11,9 +11,7 @@
     // extract each <style> tags from the markdown (they start with "<style>" and end with "</style>") and merge them into a single style tag string
     const css = markdown.match(/<style>[\s\S]*?<\/style>/g)?.join("") || "";
 
-    return (
-      css +
-      markdown
+    return css + markdown
         .replace(/\r\n<style>[\s\S]*?<\/style>/g, "")
         .split("\r\n")
         .map((line) => {
@@ -73,7 +71,6 @@
 
           // if line starts with "{", its a opening div tag including metadata
           else if (line.startsWith("{")) {
-            console.log(line);
             const text = line.replace(/^{/, "").replace(/}$/, "").trim();
 
             return `<div${lineID ? ` id="${lineID}"` : ""}${
@@ -105,10 +102,8 @@
               lineStates.length ? ` state="${lineStates.join(" ")}"` : ""
             }>${line}</p>`;
           }
-        })
-        .join("")
-    );
-  }
+        }).join("");
+  };
 
   // toggle classes on the main element when an element with the state attribute is intersected
   function onIntersection(entries: IntersectionObserverEntry[]): void {
@@ -152,7 +147,9 @@
   });
 </script>
 
-<main bind:this={main} style="height: calc(100% - {offsetTop}px);" />
+<main bind:this={main} style="height: calc(100% - {offsetTop}px);">
+  <slot></slot>
+</main>
 
 <style>
   main {
